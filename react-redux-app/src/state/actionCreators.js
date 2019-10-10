@@ -1,15 +1,20 @@
 import * as types from "./actionTypes";
 import axios from 'axios';
 
-function fetchContent(playlist) {
-    return {type: types.FETCH_CONTENT, payload: playlist}
+
+
+export function fetchContent(user, follower) {
+    return {type: types.FETCH_CONTENT, payload: {user: user, follower: follower}}
 }
 
-const renderContent = () => dispatch => {
-    axios.get('https://openwhyd.org/adrien?format=json')
-    .then(response => {
-        dispatch(fetchContent(response.data))
+export const renderContent = () => dispatch => {
+    const followersApiResponse = axios.get('https://api.github.com/users/Sandravaphilips/followers');
+    const userApiResponse = axios.get('https://api.github.com/users/Sandravaphilips')
+
+    Promise.all([userApiResponse, followersApiResponse])
+    .then(([userResponse, followersResponse]) => {
+        dispatch(fetchContent(userResponse.data, followersResponse.data))
     })
+    .catch(err=> console.log(err))
 }
 
-export default renderContent;
