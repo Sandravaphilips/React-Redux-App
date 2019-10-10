@@ -1,30 +1,47 @@
 import React, {useEffect} from 'react';
 import './App.css';
 import Navigation from './components/Navigation';
-import Playlists from './components/Playlists';
+import UsersComponent from './components/UsersComponent';
 import * as actionCreators from "./state/actionCreators";
 import { connect } from 'react-redux';
+import styled from "styled-components";
 
-export function App({renderContent, playlist}) {
+
+const AppStyle = styled.div`
+  max-width: 800px;
+  margin: auto;
+  padding: 10px 30px;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  
+
+  div{
+    width: 100%;
+  }
+`
+
+export function App({renderContent, users}) {
 
   useEffect(()=> {
     renderContent()
   }, [renderContent])
-  if(!playlist) return <h3>Loading...</h3>
-  return (
-    <div className="App">
-      <Navigation />
-      <h1>Adrien Joly's Playlist</h1>
-      <p><strong>Hi!</strong> My name is Adrien Joly and I'm so excited to share with you my music playlist. I'have been adding to the playlist for some months now and Finally I get to share it with you. Links to each track is added and I do hope you enjoy every one. Don't forget to give each track a thumbs up if you love it. Alright then, get to it <span role='img' aria-label='increase-volume'>🔊🔊</span></p>
 
-      <Playlists playlists={playlist} />
-    </div>
+  if(!users) return <h3>Loading...</h3>
+
+  return (
+    <AppStyle className="App">
+      <Navigation />
+      <h1>My GitHub Usercard</h1>
+      
+      <UsersComponent users={users} />
+    </AppStyle>
   );
 }
 
 const mapStateToProps = state => {
   return {
-    playlist: state.playlist
+    users: state.users
   }
 }
 export default connect(

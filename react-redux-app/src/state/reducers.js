@@ -1,13 +1,13 @@
 import * as types from "./actionTypes";
 
-const initialPlaylist = {
-    playlist: []
+const initialState = {
+    users: []
 };
 
-export default function reducer(state = initialPlaylist, action) {
+export default function reducer(state = initialState, action) {
     switch(action.type) {
         case types.FETCH_CONTENT:
-            return {...state, playlist: [action.payload.user, ...action.payload.follower]}
+            return {...state, users: [action.payload.user, ...action.payload.follower]}
 
         default: 
             return state;
