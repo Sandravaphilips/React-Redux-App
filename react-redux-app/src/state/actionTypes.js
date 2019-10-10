@@ -1,0 +1,3 @@
+
+export const FETCH_CONTENT = 'FETCH_CONTENT';
+export const RENDER_CONTENT = 'RENDER_CONTENT';
